@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
@@ -28,16 +29,18 @@ namespace MIS320_Team7Project_Fall2016
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
         public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<MealItem> MealItems { get; set; }
+        public virtual DbSet<Meal> MealItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder model)
         {
-            model.Entity<Item>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+            base.OnModelCreating(model);
 
-            model.Entity<MealItem>()
-                .HasMany(e => e.RequiredItems);
+            //model.Entity<Item>()
+            //    .Property(e => e.Name)
+            //    .IsUnicode(false);
+
+            //model.Entity<MealItem>()
+            //    .HasMany(e => e.RequiredItems);
         }
     }
 
@@ -47,46 +50,81 @@ namespace MIS320_Team7Project_Fall2016
     //    public string Name { get; set; }
     //}
 
+    [Table("Item", Schema = "Inventory")]
     public class Item
     {
         //Methods
-
-        [DisplayName("Cost")]
-        public decimal Cost { get; set; }
+        public Item()
+        {
+            Cost = (decimal)1.1;
+        }
 
         //Properties
-        [DisplayName("Item ID")]
-        public int Id { get; set; }
+        [DisplayName("Cost")]
+        [Required]
+        public decimal Cost { get; set; }
 
+        [Key]
+        [Required]
+        [DisplayName("Item ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ItemId { get; set; }
+
+        [Timestamp]
+        public byte[] LastModified { get; set; }
+
+        [Required]
+        [ConcurrencyCheck]
         [DisplayName("Name")]
+        [MaxLength(25), MinLength(4)]
         public string Name { get; set; }
 
+        [DisplayName("Photo")]
+        public byte[] Photo { get; set; }
+
+        [Required]
         [DisplayName("Qty On Hand")]
         public byte QtyOnHand { get; set; }
     }
 
-    public class MealItem
+    [Table("Meal", Schema = "Inventory")]
+    public class Meal
     {
         //Methods
-        public MealItem()
+        public Meal()
         {
             RequiredItems = new HashSet<Item>();
         }
 
+        //Properties
         [DisplayName("Cost")]
+        [Required]
         public decimal Cost { get; set; }
 
-        //Properties
+        [Key]
+        [Required]
         [DisplayName("Meal ID")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int MealId { get; set; }
 
         [DisplayName("Name")]
+        [ConcurrencyCheck]
+        [Required]
+        [MaxLength(25), MinLength(4)]
         public string Name { get; set; }
 
+        [DisplayName("Photo")]
+        public byte[] Photo { get; set; }
+
         [DisplayName("Required Items")]
+        [Required]
         public virtual ICollection<Item> RequiredItems { get; set; }
     }
+
+    //[Table("Users", Schema = "Admin")]
+    //public class User
+    //{
+    //}
 
     //public interface IRequiredItems :ICollection<Item>
     //{
