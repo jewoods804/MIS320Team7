@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,26 @@ using System.Data.Entity;
 
 namespace MIS320_Team7Project_Fall2016
 {
+    public class Customer : User
+    {
+        //Properties
+        public int LoyaltyId { get; set; }
+
+        //Methods
+    }
+
+    public class Employee : User
+    {
+        public double PayRate { get; set; }
+        public string Title { get; set; }
+
+        //Methods
+        public override TimeSpan GetTenure()
+        {
+            return base.GetTenure();
+        }
+    }
+
     public class FoodModel : DbContext
     {
         // Your context has been configured to use a 'FoodModel' connection string from your application's
@@ -121,10 +142,49 @@ namespace MIS320_Team7Project_Fall2016
         public virtual ICollection<Item> RequiredItems { get; set; }
     }
 
-    //[Table("Users", Schema = "Admin")]
-    //public class User
-    //{
-    //}
+    [Table("Users", Schema = "Admin")]
+    public abstract class User
+    {
+        //Methods
+        public User()
+        {
+            Email = "blah@ya.com";
+        }
+
+        [Required]
+        [EmailAddress]
+        [DisplayName("Email")]
+        public string Email { get; set; }
+
+        [DisplayName("Member Since")]
+        [Timestamp]
+        public DateTime MemberSince { get; set; }
+
+        [DisplayName("Name")]
+        [ConcurrencyCheck]
+        [Required]
+        [MaxLength(25), MinLength(4)]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        //Properties
+        [Key]
+        [Required]
+        [DisplayName("User ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+
+        //Methods
+        public virtual TimeSpan GetTenure()
+        {
+            return DateTime.Now - MemberSince;
+        }
+    }
 
     //public interface IRequiredItems :ICollection<Item>
     //{
