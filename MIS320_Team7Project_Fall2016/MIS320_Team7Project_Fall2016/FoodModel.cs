@@ -146,7 +146,7 @@ namespace MIS320_Team7Project_Fall2016
     public abstract class User
     {
         //Methods
-        public User()
+        protected User()
         {
             Email = "blah@ya.com";
         }

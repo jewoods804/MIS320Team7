@@ -16,7 +16,7 @@ namespace MIS320_Team7Project_Fall2016.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data. E.g.
             //
             //    context.People.AddOrUpdate(
@@ -26,6 +26,20 @@ namespace MIS320_Team7Project_Fall2016.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            //Populates Items Table
+            context.Items.AddOrUpdate(x => x.Name,
+                new Item(),
+                new Item(),
+                new Item()
+                );
+
+            //Populates MealItems Table
+            context.MealItems.AddOrUpdate(x => x.Name,
+                new Meal(),
+                new Meal(),
+                new Meal()
+            );
         }
     }
 }
