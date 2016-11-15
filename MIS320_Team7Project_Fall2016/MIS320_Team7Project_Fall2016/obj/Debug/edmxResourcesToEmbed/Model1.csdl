@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Stores" EntityType="Model1.Store" />
+    <EntitySet Name="Sales" EntityType="Model1.Sale" />
+    <EntitySet Name="Suppliers" EntityType="Model1.Supplier" />
+    <EntitySet Name="Rewards" EntityType="Model1.Reward" />
+    <EntitySet Name="Users" EntityType="Model1.User" />
+    <AssociationSet Name="StoreSale" Association="Model1.StoreSale">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Sale" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="SaleUser" Association="Model1.SaleUser">
+      <End Role="Sale" EntitySet="Sales" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="RewardUser" Association="Model1.RewardUser">
+      <End Role="Reward" EntitySet="Rewards" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierItem" Association="Model1.SupplierItem">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="Item" EntitySet="Meals" />
+    </AssociationSet>
+    <EntitySet Name="Meals" EntityType="Model1.Meal" />
+    <AssociationSet Name="MealSale" Association="Model1.MealSale">
+      <End Role="Meal" EntitySet="Meals" />
+      <End Role="Sale" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="MealItem" Association="Model1.MealItem">
+      <End Role="Meal" EntitySet="Meals" />
+      <End Role="Item" EntitySet="Meals" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="Zip" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sales" Relationship="Model1.StoreSale" FromRole="Store" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="String" Nullable="false" />
+    <NavigationProperty Name="Store" Relationship="Model1.StoreSale" FromRole="Sale" ToRole="Store" />
+    <NavigationProperty Name="Users" Relationship="Model1.SaleUser" FromRole="Sale" ToRole="User" />
+    <Property Name="UserId" Type="String" Nullable="false" />
+    <NavigationProperty Name="Meal" Relationship="Model1.MealSale" FromRole="Sale" ToRole="Meal" />
+  </EntityType>
+  <EntityType Name="Meal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Sales" Relationship="Model1.MealSale" FromRole="Meal" ToRole="Sale" />
+    <NavigationProperty Name="Items" Relationship="Model1.MealItem" FromRole="Meal" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Item" BaseType="Model1.Meal">
+    <Property Name="QtyOnHand" Type="String" Nullable="false" />
+    <Property Name="Cost" Type="String" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="SupplierId" Type="String" Nullable="false" />
+    <NavigationProperty Name="Supplier" Relationship="Model1.SupplierItem" FromRole="Item" ToRole="Supplier" />
+    <NavigationProperty Name="UsedIn" Relationship="Model1.MealItem" FromRole="Item" ToRole="Meal" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <Property Name="Contact" Type="String" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Zip" Type="String" Nullable="false" />
+    <NavigationProperty Name="Items" Relationship="Model1.SupplierItem" FromRole="Supplier" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Reward">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Score" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Model1.RewardUser" FromRole="Reward" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User" Abstract="true">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="Zip" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="MemSince" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="Model1.SaleUser" FromRole="User" ToRole="Sale" />
+    <Property Name="RewardId" Type="String" Nullable="false" />
+    <NavigationProperty Name="Reward" Relationship="Model1.RewardUser" FromRole="User" ToRole="Reward" />
+  </EntityType>
+  <EntityType Name="Customer" BaseType="Model1.User">
+    <Property Name="VIPStatus" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee" BaseType="Model1.User">
+    <Property Name="PayRate" Type="String" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="StoreSale">
+    <End Type="Model1.Store" Role="Store" Multiplicity="1" />
+    <End Type="Model1.Sale" Role="Sale" Multiplicity="*" />
+  </Association>
+  <Association Name="SaleUser">
+    <End Type="Model1.Sale" Role="Sale" Multiplicity="1" />
+    <End Type="Model1.User" Role="User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RewardUser">
+    <End Type="Model1.Reward" Role="Reward" Multiplicity="1" />
+    <End Type="Model1.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reward">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RewardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierItem">
+    <End Type="Model1.Supplier" Role="Supplier" Multiplicity="1" />
+    <End Type="Model1.Item" Role="Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MealSale">
+    <End Type="Model1.Meal" Role="Meal" Multiplicity="1" />
+    <End Type="Model1.Sale" Role="Sale" Multiplicity="*" />
+  </Association>
+  <Association Name="MealItem">
+    <End Type="Model1.Meal" Role="Meal" Multiplicity="*" />
+    <End Type="Model1.Item" Role="Item" Multiplicity="1" />
+  </Association>
+</Schema>
