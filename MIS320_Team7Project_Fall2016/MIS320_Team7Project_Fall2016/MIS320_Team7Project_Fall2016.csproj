@@ -250,6 +250,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BaseHelper.cs" />
+    <Compile Include="Helpers\FoodStoreContext.cs" />
+    <Compile Include="Helpers\Item.cs" />
+    <Compile Include="Helpers\Meal.cs" />
+    <Compile Include="Helpers\Sale.cs" />
+    <Compile Include="Helpers\Store.cs" />
+    <Compile Include="Helpers\Supplier.cs" />
+    <Compile Include="Helpers\User.cs" />
     <Compile Include="Migrations\201611102026008_InitialCreate.cs" />
     <Compile Include="Migrations\201611102026008_InitialCreate.Designer.cs">
       <DependentUpon>201611102026008_InitialCreate.cs</DependentUpon>
