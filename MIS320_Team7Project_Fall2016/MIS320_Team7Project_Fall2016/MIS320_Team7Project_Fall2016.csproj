@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201611151951162_TryTwo.Designer.cs">
       <DependentUpon>201611151951162_TryTwo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611152116270_TryThree.cs" />
+    <Compile Include="Migrations\201611152116270_TryThree.Designer.cs">
+      <DependentUpon>201611152116270_TryThree.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -366,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611151951162_TryTwo.resx">
       <DependentUpon>201611151951162_TryTwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611152116270_TryThree.resx">
+      <DependentUpon>201611152116270_TryThree.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

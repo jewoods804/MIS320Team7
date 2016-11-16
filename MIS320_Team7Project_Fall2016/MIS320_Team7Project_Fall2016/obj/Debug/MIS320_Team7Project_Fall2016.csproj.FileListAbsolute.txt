@@ -115,3 +115,5 @@ C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320
 C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320_Team7Project_Fall2016\bin\System.Interactive.Async.xml
 C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320_Team7Project_Fall2016\obj\Debug\MIS320_Team7Project_Fall2016.Migrations.GoodDbMigration.resources
 C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320_Team7Project_Fall2016\obj\Debug\MIS320_Team7Project_Fall2016.Migrations.TryTwo.resources
+C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320_Team7Project_Fall2016\obj\Debug\MIS320_Team7Project_Fall2016.Migrations.TryThree.resources
+C:\Users\ForestWind\Source\Repos\MIS320Team7\MIS320_Team7Project_Fall2016\MIS320_Team7Project_Fall2016\obj\Debug\MIS320_Team7Project_Fall2016.Migrations.IntialCreate.resources

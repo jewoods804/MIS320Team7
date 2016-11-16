@@ -149,17 +149,17 @@ namespace MIS320_Team7Project_Fall2016
         [MaxLength(25), MinLength(4)]
         public string Name { get; set; }
 
-        [DisplayName("Photo")]
-        public byte?[] Photo { get; set; }
+        //[DisplayName("Photo")]
+        //public byte?[] Photo { get; set; }
 
         [Required]
         [DisplayName("Qty On Hand")]
         public int QtyOnHand { get; set; }
 
-        [ForeignKey("Supplier")]
-        public int SupplierId { get; set; }
+        //[ForeignKey("Supplier")]
+        //public int SupplierId { get; set; }
 
-        public virtual Supplier Supplier { get; set; }
+        //public virtual Supplier Supplier { get; set; }
     }
 
 
@@ -291,7 +291,7 @@ namespace MIS320_Team7Project_Fall2016
     }
 
     //[Table("Users", Schema = "Admin")]
-    public abstract class User
+    public class User
     {
         //Properties
         [Required]
